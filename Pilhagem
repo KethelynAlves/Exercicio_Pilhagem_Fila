@@ -107,6 +107,8 @@ void cheio(){
 	}
 	if (cont >=M){
 		printf("Pilha cheia.\n");
-	} else 
+	} else {
+		printf("A pilha nao esta cheia.\n");
+	}
 }
 
