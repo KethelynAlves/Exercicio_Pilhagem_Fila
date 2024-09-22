@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define M 5
+/* Inserção, remoção, Topo (mostra o elemento que está no topo da pilha 
+mas não o remove) , verificação se a pilha está vazia, verificação se a 
+pilha está cheia*/
+
+typedef struct pilha{
+	int dado;
+	struct pilha *prox;
+}celula; //referncia a struct lista
+
+void entrar();
+void remover();
+void topo();
+void vazio();
+void cheio();
+
+celula *top = NULL;
+
+int main(){
+	int n, opc;
+	do {
+		printf("Menu da pilha: \n1-Inserir \n2-Remover \n3-Topo \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-sair.");
+		printf("Digite: ");
+		scanf("%i", &opc);
+		switch (opc){
+			case 1:{
+				entrar();
+				break;
+			}
+			case 2:{
+				remover();
+				break;
+			}
+			case 3:{
+				topo();
+				break;
+			}
+			case 4:{
+				vazio();
+				break;
+			}
+			case 5:{
+				cheio();
+				break;
+			}
+			case 6:{
+				printf("Saindo...");
+				break;
+			}
+			default: printf("Opção inválida. Tente novamente.\n");
+				break;
+		}
+	}while(opc != 6);
+}
+
+void entrar(){
+	int n;
+	celula *nova = malloc(sizeof(celula));
+	if (nova == NULL){
+		printf("Erro de alocação de memoria.");
+		return;
+	}
+	printf("Digite o valor a ser empilhado: ");
+	scanf("%i", &n);
+	nova->dado = n;     //atribui valor na nova
+	nova->prox = top;   //aponta pra nova celulapro antigo topó
+	top = nova;         //atualizar o topo para a nova celula
+	printf("Valor %i empilhado.\n", n);
+}
+
+void remover(){
+	if (top* == NULL){
+		printf("Pilha vazia.\n");
+		return;
+	}
+	celula *temp = top;  //armazena o nó do topo
+	top = top->prox;     //atualiza o topo para o proximo nó
+	printf("Valor %i desemplido.\n", temp->dado);
+	free(temp); //apaga o que esta na celula
+}
+
+void topo(){
+	if (top == NULL){
+		printf("Pilha vazia.\n");
+	} else {
+		printf("O valor no topo eh: %i\n", top->dado);
+	}
+}
+
+void vazio(){
+	if (top == NULL){
+		printf("Pilha vazia.\n");
+	} else {
+		printf("A pilha nao esta vazia.\n");
+	}
+}
+
+void cheio(){
+	int cont=0;
+	celula *temp=top;
+	while (temp!=NULL){
+		cont++;
+		temp=temp->prox;
+	}
+	if (cont >=M){
+		printf("Pilha cheia.\n");
+	} else 
+}
+
