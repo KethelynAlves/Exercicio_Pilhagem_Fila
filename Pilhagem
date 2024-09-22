@@ -18,12 +18,13 @@ void vazio();
 void cheio();
 
 celula *top = NULL;
+int tam=0;
 
 int main(){
 	int n, opc;
 	do {
-		printf("Menu da pilha: \n1-Inserir \n2-Remover \n3-Topo \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-sair.");
-		printf("Digite: ");
+		printf("Menu da pilha: \n\n1-Inserir \n2-Remover \n3-Topo \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-sair.");
+		printf("\n\nDigite: ");
 		scanf("%i", &opc);
 		switch (opc){
 			case 1:{
@@ -47,42 +48,61 @@ int main(){
 				break;
 			}
 			case 6:{
-				printf("Saindo...");
+				printf("Saindo...\n");
 				break;
 			}
 			default: printf("Opção inválida. Tente novamente.\n");
 				break;
 		}
 	}while(opc != 6);
+	system("cls");
+	
+	celula *atual = top;
+    printf("Elementos da pilha: ");
+    while (atual != NULL) {
+        printf("%d ", atual->dado);
+        atual = atual->prox;
+    }
+    printf("\n");
 }
 
 void entrar(){
 	int n;
-	celula *nova = malloc(sizeof(celula));
+	celula *nova = (celula*)malloc(sizeof(celula));
 	if (nova == NULL){
 		printf("Erro de alocação de memoria.");
 		return;
 	}
+	if (tam >= M){
+		printf("Pilha cheia.\n\n");
+		return;
+	}
+	
 	printf("Digite o valor a ser empilhado: ");
 	scanf("%i", &n);
 	nova->dado = n;     //atribui valor na nova
 	nova->prox = top;   //aponta pra nova celulapro antigo topó
 	top = nova;         //atualizar o topo para a nova celula
+	tam++; //incrementa para que não passe da memoria alocada
+	system("cls");
 	printf("Valor %i empilhado.\n", n);
 }
 
 void remover(){
-	if (top* == NULL){
+	if (top == NULL){
 		printf("Pilha vazia.\n");
 		return;
 	}
 	celula *temp = top;  //armazena o nó do topo
 	top = top->prox;     //atualiza o topo para o proximo nó
+	system("cls");
 	printf("Valor %i desemplido.\n", temp->dado);
 	free(temp); //apaga o que esta na celula
+	tam--;
 }
 
 void topo(){
+	system("cls");
 	if (top == NULL){
 		printf("Pilha vazia.\n");
 	} else {
@@ -91,6 +111,7 @@ void topo(){
 }
 
 void vazio(){
+	system("cls");
 	if (top == NULL){
 		printf("Pilha vazia.\n");
 	} else {
@@ -99,6 +120,7 @@ void vazio(){
 }
 
 void cheio(){
+	system("cls");
 	int cont=0;
 	celula *temp=top;
 	while (temp!=NULL){
@@ -111,4 +133,3 @@ void cheio(){
 		printf("A pilha nao esta cheia.\n");
 	}
 }
-
