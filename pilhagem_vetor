@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define M 5
+/* Inserção, remoção, Topo (mostra o elemento que está no topo da pilha 
+mas não o remove) , verificação se a pilha está vazia, verificação se a 
+pilha está cheia*/
+
+typedef struct{
+	int dado[M];
+	int topo;
+}celula;
+
+void entrar();
+void remover();
+void topo();
+void vazio();
+void cheio();
+void imprimir();
+
+celula pilha;
+
+int main(){
+	pilha.topo=-1;//NULL
+	int opc;
+	do {
+		printf("Menu da pilha: \n\n1-Inserir \n2-Remover \n3-Topo \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-Imprimir a pilha. \n7-sair.");
+		printf("\n\nDigite: ");
+		scanf("%i", &opc);
+		switch (opc){
+			case 1:{
+				entrar();
+				break;
+			}
+			case 2:{
+				remover();
+				break;
+			}
+			case 3:{
+				topo();
+				break;
+			}
+			case 4:{
+				vazio();
+				break;
+			}
+			case 5:{
+				cheio();
+				break;
+			}
+			case 6:{
+				imprimir();
+				break;
+			}
+			case 7:{
+				printf("Saindo...\n");
+				break;
+			}
+			default: printf("Opção inválida. Tente novamente.\n");
+				break;
+		}
+	}while(opc != 7);
+	system("cls");
+}
+
+void entrar(){
+	int n;
+	if (pilha.topo == M-1){
+		printf("\nPilha cheia.\n\n");
+		return;
+	}
+	
+	printf("\nDigite o valor a ser empilhado: ");
+	scanf("%i", &n);
+	pilha.topo++;
+	pilha.dado[pilha.topo]=n;
+	system("cls");
+	printf("\nValor %i empilhado.\n", n);
+}
+
+void remover(){
+	if (pilha.topo == -1){
+		printf("\nPilha vazia.\n");
+		return;
+	}
+	printf("\nValor %i desemplido.\n", pilha.dado[pilha.topo]);
+	pilha.topo--;
+	system("cls");
+}
+
+void topo(){
+		system("cls");
+	if (pilha.topo == -1){
+		printf("\nPilha vazia.\n");
+	} else {
+		printf("\nO valor no topo eh: %i\n", pilha.dado[pilha.topo]);
+	}
+}
+
+void vazio(){
+		system("cls");
+	if (pilha.topo == -1){
+		printf("\nPilha vazia.\n");
+	} else {
+		printf("\nA pilha nao esta vazia.\n");
+	}
+}
+
+void cheio(){
+		system("cls");
+	if (pilha.topo != -1){
+		printf("\nPilha cheia.\n");
+	} else {
+		printf("\nA pilha nao esta cheia.\n");
+	}
+}
+
+void imprimir(){
+		system("cls");
+	if (pilha.topo == -1){
+		printf("\nPilha esta vazia.\n");
+		return;
+	}
+	printf("\nElementos da pilha: ");
+	for (int i=0;i<=pilha.topo;i++){
+		printf("%i ", pilha.dado[i]);
+	}
+}
