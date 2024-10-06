@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define M 5
+/* – Inserção, remoção, exibição dos elementos e suas respectivas posições 
+na fila, verificação se a fila está vazia, verificação se a fila está cheia, 
+localização de um elemento, retornando -1 se não estiver na fila e, a 
+posição do elemento caso esteja na FILA*/
+
+typedef struct{
+	int dado[M];
+	int ini;
+	int fim;
+	int tam;
+}Fila;
+
+void entrar();
+void remover();
+void exibir();
+void vazio();
+void cheio();
+void procura();//retornando -1 se não estiver na fila e a posição do elemento caso esteja na FILA
+
+Fila fila;
+
+int main(){
+	fila.ini=0;fila.tam=0;fila.fim=0;
+	int n=0, opc;
+	do {
+		printf("Menu da fila: \n1-Inserir \n2-Remover \n3-Exibir \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-Localizar elemento.");
+		printf("Digite: ");
+		scanf("%i", &opc);
+		switch (opc){
+			case 1:{
+				entrar();
+				break;
+			}
+			case 2:{
+				remover();
+				break;
+			}
+			case 3:{
+				exibir();
+				break;
+			}
+			case 4:{
+				vazio();
+				break;
+			}
+			case 5:{
+				cheio();
+				break;
+			}
+			case 6:{
+				procura();
+				break;
+			}
+			case 7:{
+				printf("Saindo...");
+				break;
+			}
+			default: printf("Opção inválida. Tente novamente.\n");
+				break;
+		}
+	}while(opc != 7);
+}
+
+void entrar(){
+	system("cls");
+	int n;
+	if (fila.fim == M-1){
+		printf("\nFila cheia.\n\n");
+		return;
+	}
+	printf("\nDigite o valor a ser inserido: ");
+	scanf("%i", &n);
+	fila.dado[fila.fim]=n;
+	fila.fim=(fila.fim+1)%M;
+	fila.tam++;
+	
+	system("cls");
+	printf("\nValor %i a entrou na fila.\n", n);	
+}
+
+void remover(){
+	system("cls");
+	if (fila.tam==0){
+		printf("\nFila vazia.\n");
+		return;
+	}
+	printf("\nValor %i foi atendido.\n", fila.dado[fila.fim]);
+	fila.ini=(fila.ini+1)%M;
+	fila.tam--;
+}
+
+void exibir(){
+	int aux;
+	if (fila.tam==0){
+		printf("\nFila esta vazia.\n");
+		return;
+	}
+	for(int i=0;i<fila.tam;i++){
+		printf("%i ", fila.dado[i]);
+	}
+	
+}
+
+void vazio(){
+	if (fila.tam==0){
+		printf("\nFila esta vazia.\n");
+	} else {
+		printf("\nA fila nao esta vazia.\n");
+		return;
+	}
+}
+
+void cheio(){
+	if (fila.tam<M){
+		system("cls");
+		printf("\nFila esta cheia.\n");
+	} else {
+		printf("\nA fila nao esta cheia.\n");
+		return;
+	}
+}
+
+void procura(){
+		system("cls");
+	int aux;
+	if (fila.tam==0){
+		printf("\nFila esta vazia.\n");
+		return;
+	}
+	printf("\nDigite o numero a ser procurado: ");
+	scanf("%i", &aux);
+	for (int i=0;i<fila.tam;i++){
+		if (aux==fila.dado[i]){
+			printf("\nO numero: %i foi achado na posicao: %i\n", aux, i);
+		} else {
+			printf("\nNao foi possivel achar o numero.\n");
+			return;
+		}
+	}
+}
