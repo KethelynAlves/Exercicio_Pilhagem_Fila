@@ -27,8 +27,8 @@ int main(){
 	fila.ini=0;fila.tam=0;fila.fim=0;
 	int n=0, opc;
 	do {
-		printf("Menu da fila: \n1-Inserir \n2-Remover \n3-Exibir \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-Localizar elemento.");
-		printf("Digite: ");
+		printf("Menu da fila: \n1-Inserir \n2-Remover \n3-Exibir \n4-Verificar se esta vazia \n5-verificar se esta cheia \n6-Localizar elemento. \n7-Sair.");
+		printf("\nDigite: ");
 		scanf("%i", &opc);
 		switch (opc){
 			case 1:{
@@ -68,14 +68,14 @@ int main(){
 void entrar(){
 	system("cls");
 	int n;
-	if (fila.fim == M-1){
+	if (fila.tam == M){
 		printf("\nFila cheia.\n\n");
 		return;
 	}
 	printf("\nDigite o valor a ser inserido: ");
 	scanf("%i", &n);
 	fila.dado[fila.fim]=n;
-	fila.fim=(fila.fim+1)%M;
+	fila.fim++;
 	fila.tam++;
 	
 	system("cls");
@@ -84,12 +84,16 @@ void entrar(){
 
 void remover(){
 	system("cls");
+	int aux;
 	if (fila.tam==0){
 		printf("\nFila vazia.\n");
 		return;
 	}
-	printf("\nValor %i foi atendido.\n", fila.dado[fila.fim]);
-	fila.ini=(fila.ini+1)%M;
+	printf("\nValor %i foi atendido.\n", fila.dado[fila.ini]);
+	for (int i=0;i<fila.tam-1;i++){
+	fila.dado[i]=fila.dado[i+1];
+	}
+	fila.fim--;
 	fila.tam--;
 }
 
@@ -102,7 +106,6 @@ void exibir(){
 	for(int i=0;i<fila.tam;i++){
 		printf("%i ", fila.dado[i]);
 	}
-	
 }
 
 void vazio(){
@@ -110,23 +113,21 @@ void vazio(){
 		printf("\nFila esta vazia.\n");
 	} else {
 		printf("\nA fila nao esta vazia.\n");
-		return;
 	}
 }
 
 void cheio(){
-	if (fila.tam<M){
 		system("cls");
+	if (fila.tam==M){
 		printf("\nFila esta cheia.\n");
 	} else {
 		printf("\nA fila nao esta cheia.\n");
-		return;
 	}
 }
 
 void procura(){
 		system("cls");
-	int aux;
+	int aux,a=-1;
 	if (fila.tam==0){
 		printf("\nFila esta vazia.\n");
 		return;
@@ -135,10 +136,14 @@ void procura(){
 	scanf("%i", &aux);
 	for (int i=0;i<fila.tam;i++){
 		if (aux==fila.dado[i]){
-			printf("\nO numero: %i foi achado na posicao: %i\n", aux, i);
-		} else {
-			printf("\nNao foi possivel achar o numero.\n");
-			return;
+			a=i;
+			break;
 		}
 	}
+	if (a==-1){
+		printf("\nNao foi possivel achar o numero.\n");
+	} else {
+		printf("\nO numero: %i foi achado na posicao: %i\n", aux, i);
+	}
+		
 }
